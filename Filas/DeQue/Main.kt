@@ -1,0 +1,16 @@
+fun main() {
+    var fila: DuplamenteEnfileiravel = DeQue()
+    fila.enfileirarInicio("Primeiro")
+    fila.enfileirarInicio("Segundo")
+    fila.enfileirarFim("Terceiro")
+    fila.enfileirarFim("Quarto")
+    println("Espiar frente: ${fila.espiarFrente()}")
+    fila.desenfileirarInicio()
+    fila.desenfileirarFim()
+    fila.enfileirarInicio("Quinto")
+    fila.enfileirarFim("Sexto")
+    println("Espiar tras: ${fila.espiarTras()}")
+    fila.atualizarInicio("Sétimo")
+    fila.atualizarFim("Oitavo")
+    println("Fila: ${fila.imprimir()}")
+}
