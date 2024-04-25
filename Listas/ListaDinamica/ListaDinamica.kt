@@ -7,7 +7,7 @@ class ListaDinamica(var tamanho: Int = 10): ListavelDinamica {
         if (!estaCheia()) {
             var novoNo = ListaNoDuplo(dado)
             novoNo.anterior = ponteiroFim
-            //novo nó aponta para o ponteiroFim
+            //novo nó aponta para o ponteiroFim - p/ anexar ao final
             if (!estaVazia()) {
                 ponteiroFim?.proximo = novoNo
             } else {
@@ -83,13 +83,15 @@ class ListaDinamica(var tamanho: Int = 10): ListavelDinamica {
                 val ponteiroProximo = ponteiroAux?.proximo
                 if (ponteiroAnterior != null) {
                     ponteiroAnterior.proximo = ponteiroProximo
+                    //remove do início
                 } else {
-                    ponteiroInicio = ponteiroProximo
+                    ponteiroInicio = ponteiroInicio?.proximo
                 }
                 if (ponteiroProximo != null) {
                     ponteiroProximo.anterior = ponteiroAnterior
+                    //remove do fim
                 } else {
-                    ponteiroFim = ponteiroAnterior
+                    ponteiroFim = ponteiroFim?.anterior
                 }
                 quantidade--
             } else {
@@ -100,6 +102,46 @@ class ListaDinamica(var tamanho: Int = 10): ListavelDinamica {
         }
         return dadoAux
     }
+
+    /*outra forma de fazer o inserir: 
+        override fun inserir(posicao: Int, dado: Any?) {
+            if(!estaCheia()) {
+                if (posicao >= 0 && posicao <= quantidade) {
+                    var ponteiroAnterior: ListaNoDuplo = null
+                    var ponteiroProximo = ponteiroInicio
+
+                    for (i in 0 until posicao) {
+                        ponteiroAnterior = ponteiroProximo
+                        ponteiroProximo = ponteiroProximo?.proximo
+                    }
+
+                    var novoNo = ListaNoDuplo(dado)
+
+                    novoNo.proximo = ponteiroProximo
+                    novoNo.anterior = ponteiroAnterior
+                    
+                    if (ponteiroAnterior != null) {
+                        ponteiroAnterior.proximo = novoNo
+                    } else {
+                        //inserção no inicio, se for nulo
+                        ponteiroInicio = novoNo
+                    }
+                    
+                    if (ponteiroProximo != null) {
+                        ponteiroProximo.anterior = novoNo
+                    } else {
+                        //inserção no fim, se for nulo
+                        ponteiroFim = novoNo
+                    }
+                    quantidade++
+                } else {
+                    println("Indice invalido")
+                }
+            } else {
+                println("List is full")
+            }
+        }
+    */
 
     override fun inserir(posicao: Int, dado: Any?) {
         if (!estaCheia()) {
